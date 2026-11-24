@@ -1,3 +1,6 @@
+// Pobiera dane sezonu NBA (drużyny, mecze, zawodnicy) i zapisuje je w folderze data/.
+// Uruchomienie z głównego folderu projektu:  node scripts/pobierz-dane.mjs
+
 import { SEZON, TYP_SEZONU, pobierzNBA, tabelaNaObiekty, zapiszJSON } from './nba-api.mjs';
 
 const LICZBA_ZAWODNIKOW = 20; // tylu najlepszych strzelców trafia do danych

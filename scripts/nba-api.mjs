@@ -1,3 +1,9 @@
+// Wspólne funkcje do pobierania danych z oficjalnego API statystyk NBA (stats.nba.com).
+//
+// Skrypty uruchamiamy LOKALNIE w Node.js (wersja 18 lub nowsza), a nie na stronie:
+// serwer NBA nie wysyła nagłówków CORS, więc przeglądarka nie może go zapytać bezpośrednio.
+// Dlatego dane pobieramy raz i zapisujemy jako pliki JSON w folderze data/.
+
 import { mkdir, writeFile } from 'node:fs/promises';
 
 export const SEZON = '2025-26';
