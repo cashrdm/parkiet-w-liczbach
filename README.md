@@ -1,7 +1,7 @@
 # Parkiet w liczbach – sezon NBA 2025/26
 
 **Autorzy:** Łukasz Gębski (21269), Artur Sadkowski (21054), Cezary Strzelczyk (21003)
-**Adres wdrożenia:** _(uzupełnimy po wdrożeniu)_
+**Adres wdrożenia:** https://cashrdm.github.io/parkiet-w-liczbach/
 **Repozytorium:** https://github.com/cashrdm/parkiet-w-liczbach
 **Przedmiot:** Interaktywna grafika i wizualizacja danych na stronach WWW, AHNS Radom
 
