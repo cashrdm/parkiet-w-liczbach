@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parkiet w liczbach – sezon NBA 2025/26</title>
+  <meta name="description" content="Interaktywne podsumowanie sezonu zasadniczego NBA 2025/26: przebieg rywalizacji drużyn, porównanie zawodników i mapy rzutów.">
+
+  <!-- Style: wspólne + jeden plik na moduł (każdy moduł rozwija inna osoba, bez konfliktów w Git) -->
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/animacje.css">
+  <link rel="stylesheet" href="./css/galeria.css">
+  <link rel="stylesheet" href="./css/wykresy.css">
+  <link rel="stylesheet" href="./css/scena.css">
+  <link rel="stylesheet" href="./css/odtwarzacz.css">
+
+  <!-- Skrypty: moduły ES są domyślnie odroczone (jak defer), więc nie blokują wczytywania strony.
+       Każdy moduł ładujemy osobno – błąd w jednym nie wyłącza pozostałych. -->
+  <script type="module" src="./js/main.js"></script>
+  <script type="module" src="./js/galeria.js"></script>
+  <script type="module" src="./js/wykresy.js"></script>
+  <script type="module" src="./js/infografika.js"></script>
+  <script type="module" src="./js/scena.js"></script>
+  <script type="module" src="./js/odtwarzacz.js"></script>
+</head>
+<body>
+  <header class="naglowek">
+    <p class="logo">Parkiet w liczbach</p>
+  </header>
+
+  <main id="tresc">
+    <!-- START · odpowiada: Łukasz (infografika SVG: Artur) -->
+    <section id="start" class="sekcja" aria-labelledby="start-tytul">
+      <h1 id="start-tytul">Sezon NBA 2025/26 w liczbach</h1>
+      <p>Interaktywne podsumowanie sezonu zasadniczego na podstawie oficjalnych statystyk ligi.</p>
+    </section>
+
+    <!-- SEZON · W3 wykres 1 · odpowiada: Artur -->
+    <section id="sezon" class="sekcja" aria-labelledby="sezon-tytul">
+      <h2 id="sezon-tytul">Wyścig sezonu</h2>
+      <p>Jak zmieniał się bilans zwycięstw drużyn w trakcie sezonu.</p>
+    </section>
+
+    <!-- ZAWODNICY · W3 wykres 2 · odpowiada: Artur (karty 3D: Łukasz) -->
+    <section id="zawodnicy" class="sekcja" aria-labelledby="zawodnicy-tytul">
+      <h2 id="zawodnicy-tytul">Zawodnicy</h2>
+      <p>Porównanie najlepszych strzelców sezonu.</p>
+    </section>
+
+    <!-- RZUTY · W4 Canvas · odpowiada: Czarek -->
+    <section id="rzuty" class="sekcja" aria-labelledby="rzuty-tytul">
+      <h2 id="rzuty-tytul">Mapa rzutów</h2>
+      <p>Skąd i jak skutecznie rzucali najlepsi zawodnicy ligi.</p>
+    </section>
+
+    <!-- NASZ MECZ · W5 multimedia · odpowiada: Czarek -->
+    <section id="nasz-mecz" class="sekcja" aria-labelledby="nasz-mecz-tytul">
+      <h2 id="nasz-mecz-tytul">Nasz mecz 3×3</h2>
+      <p>Skrót naszego meczu z tablicą wyników zsynchronizowaną z filmem.</p>
+    </section>
+
+    <!-- GALERIA · W6 · odpowiada: Łukasz -->
+    <section id="galeria" class="sekcja" aria-labelledby="galeria-tytul">
+      <h2 id="galeria-tytul">Galeria</h2>
+      <p>Zdjęcia z naszego meczu i hal NBA.</p>
+    </section>
+
+    <!-- O PROJEKCIE · wszyscy -->
+    <section id="o-projekcie" class="sekcja" aria-labelledby="o-projekcie-tytul">
+      <h2 id="o-projekcie-tytul">O projekcie</h2>
+      <p>Źródła danych, licencje i autorzy.</p>
+    </section>
+  </main>
+
+  <footer class="stopka">
+    <p>Projekt zaliczeniowy · Interaktywna grafika i wizualizacja danych na stronach WWW · AHNS Radom</p>
+  </footer>
+</body>
+</html>

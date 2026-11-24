@@ -1,0 +1,13 @@
+# Pliki systemowe
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Zależności i narzędzia
+node_modules/
+.vscode/
+.idea/
+.claude/
+
+# Robocze notatki zespołu (nie są częścią projektu)
+_instrukcje/
