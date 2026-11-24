@@ -33,3 +33,68 @@ canvas {
   max-width: 72rem;
   margin: 0 auto;
 }
+
+/* Przewijanie do sekcji: płynne tylko wtedy, gdy użytkownik nie prosi o ograniczenie ruchu */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ---------- Link „Pomiń do treści” ---------- */
+/* Schowany nad krawędzią ekranu (nie display:none – wtedy czytniki ekranu i Tab by go pominęły).
+   Wjeżdża na ekran, gdy dostanie fokus z klawiatury. */
+.pomin {
+  position: absolute;
+  top: -4rem;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: #1a1a1a;
+  color: #ffffff;
+}
+
+.pomin:focus {
+  top: 1rem;
+}
+
+/* <main> dostaje fokus tylko programowo (przez link „Pomiń”), obrys wokół całej treści byłby mylący */
+#tresc:focus {
+  outline: none;
+}
+
+/* ---------- Nagłówek i nawigacja ---------- */
+.naglowek {
+  display: flex;
+  flex-wrap: wrap;          /* na wąskim ekranie menu schodzi pod logo */
+  align-items: center;
+  gap: 0.5rem 2rem;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.nawigacja ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;         /* to lista linków, ale bez kropek */
+}
+
+.nawigacja a {
+  display: inline-block;
+  padding: 0.6rem 0.25rem;  /* cel dotyku min. ok. 44 px wysokości (WCAG 2.5.5) */
+  color: inherit;
+}
+
+/* Sekcja widoczna na ekranie – ustawia JS (main.js) atrybutem aria-current */
+.nawigacja a[aria-current] {
+  font-weight: 700;
+  text-decoration-thickness: 3px;
+}

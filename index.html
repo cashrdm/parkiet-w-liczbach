@@ -24,11 +24,28 @@
   <script type="module" src="./js/odtwarzacz.js"></script>
 </head>
 <body>
+  <!-- Pierwszy element strony: osoba korzystająca z klawiatury jednym Tab przeskakuje nagłówek i menu -->
+  <a class="pomin" href="#tresc">Pomiń do treści</a>
+
   <header class="naglowek">
-    <p class="logo">Parkiet w liczbach</p>
+    <!-- Logo prowadzi na początek strony (w D5 Artur wstawi tu logo SVG) -->
+    <a class="logo" href="#start">Parkiet w liczbach</a>
+
+    <nav class="nawigacja" aria-label="Sekcje strony">
+      <ul>
+        <li><a href="#sezon">Sezon</a></li>
+        <li><a href="#zawodnicy">Zawodnicy</a></li>
+        <li><a href="#rzuty">Rzuty</a></li>
+        <li><a href="#nasz-mecz">Nasz mecz</a></li>
+        <li><a href="#galeria">Galeria</a></li>
+        <li><a href="#o-projekcie">O projekcie</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <main id="tresc">
+  <!-- tabindex="-1": po kliknięciu „Pomiń do treści” fokus trafia do <main>,
+       więc następny Tab idzie do pierwszego elementu treści, a nie z powrotem do menu -->
+  <main id="tresc" tabindex="-1">
     <!-- START · odpowiada: Łukasz (infografika SVG: Artur) -->
     <section id="start" class="sekcja" aria-labelledby="start-tytul">
       <h1 id="start-tytul">Sezon NBA 2025/26 w liczbach</h1>
@@ -74,6 +91,10 @@
 
   <footer class="stopka">
     <p>Projekt zaliczeniowy · Interaktywna grafika i wizualizacja danych na stronach WWW · AHNS Radom</p>
+    <p>
+      Dane: <a href="https://www.nba.com/stats">NBA.com/stats</a> (sezon zasadniczy 2025/26) ·
+      Kod: <a href="https://github.com/cashrdm/parkiet-w-liczbach">GitHub</a>
+    </p>
   </footer>
 </body>
 </html>
