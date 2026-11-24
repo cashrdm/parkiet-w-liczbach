@@ -1,0 +1,22 @@
+[
+  {"id":1629029,"imie":"Luka","nazwisko":"Dončić","druzyna":"LAL","pozycja":"F","numer":"77","mecze":64,"minuty":35.8,"pkt":33.5,"zb":7.7,"as":8.3,"prz":1.6,"blk":0.5,"fg":0.476,"tp":0.366,"ft":0.78},
+  {"id":1628983,"imie":"Shai","nazwisko":"Gilgeous-Alexander","druzyna":"OKC","pozycja":"G","numer":"2","mecze":68,"minuty":33.2,"pkt":31.1,"zb":4.3,"as":6.6,"prz":1.4,"blk":0.8,"fg":0.553,"tp":0.386,"ft":0.879},
+  {"id":1630162,"imie":"Anthony","nazwisko":"Edwards","druzyna":"MIN","pozycja":"G","numer":"5","mecze":61,"minuty":35,"pkt":28.8,"zb":5,"as":3.7,"prz":1.4,"blk":0.8,"fg":0.489,"tp":0.399,"ft":0.796},
+  {"id":1627759,"imie":"Jaylen","nazwisko":"Brown","druzyna":"BOS","pozycja":"G","numer":"7","mecze":71,"minuty":34.4,"pkt":28.7,"zb":6.9,"as":5.1,"prz":1,"blk":0.4,"fg":0.477,"tp":0.347,"ft":0.795},
+  {"id":1630178,"imie":"Tyrese","nazwisko":"Maxey","druzyna":"PHI","pozycja":"G","numer":"0","mecze":70,"minuty":38,"pkt":28.3,"zb":4.1,"as":6.6,"prz":1.9,"blk":0.8,"fg":0.462,"tp":0.367,"ft":0.892},
+  {"id":1628378,"imie":"Donovan","nazwisko":"Mitchell","druzyna":"CLE","pozycja":"G","numer":"45","mecze":70,"minuty":33.5,"pkt":27.9,"zb":4.5,"as":5.7,"prz":1.5,"blk":0.3,"fg":0.483,"tp":0.364,"ft":0.865},
+  {"id":202695,"imie":"Kawhi","nazwisko":"Leonard","druzyna":"LAC","pozycja":"F","numer":"2","mecze":65,"minuty":32.1,"pkt":27.9,"zb":6.4,"as":3.6,"prz":1.9,"blk":0.4,"fg":0.505,"tp":0.387,"ft":0.892},
+  {"id":203999,"imie":"Nikola","nazwisko":"Jokić","druzyna":"DEN","pozycja":"C","numer":"15","mecze":65,"minuty":34.8,"pkt":27.7,"zb":12.9,"as":10.7,"prz":1.4,"blk":0.8,"fg":0.569,"tp":0.38,"ft":0.831},
+  {"id":1626164,"imie":"Devin","nazwisko":"Booker","druzyna":"PHX","pozycja":"G","numer":"1","mecze":64,"minuty":33.5,"pkt":26.1,"zb":3.9,"as":6,"prz":0.8,"blk":0.3,"fg":0.456,"tp":0.33,"ft":0.873},
+  {"id":1628973,"imie":"Jalen","nazwisko":"Brunson","druzyna":"NYK","pozycja":"G","numer":"11","mecze":74,"minuty":35,"pkt":26,"zb":3.3,"as":6.8,"prz":0.8,"blk":0.1,"fg":0.467,"tp":0.369,"ft":0.841},
+  {"id":201142,"imie":"Kevin","nazwisko":"Durant","druzyna":"HOU","pozycja":"F","numer":"7","mecze":78,"minuty":36.4,"pkt":26,"zb":5.5,"as":4.8,"prz":0.8,"blk":0.9,"fg":0.52,"tp":0.413,"ft":0.874},
+  {"id":1627750,"imie":"Jamal","nazwisko":"Murray","druzyna":"DEN","pozycja":"G","numer":"27","mecze":75,"minuty":35.4,"pkt":25.4,"zb":4.4,"as":7.1,"prz":0.9,"blk":0.4,"fg":0.483,"tp":0.435,"ft":0.887},
+  {"id":1641705,"imie":"Victor","nazwisko":"Wembanyama","druzyna":"SAS","pozycja":"F","numer":"1","mecze":64,"minuty":29.2,"pkt":25,"zb":11.5,"as":3.1,"prz":1,"blk":3.1,"fg":0.512,"tp":0.349,"ft":0.827},
+  {"id":1630166,"imie":"Deni","nazwisko":"Avdija","druzyna":"POR","pozycja":"F","numer":"8","mecze":66,"minuty":33.3,"pkt":24.2,"zb":6.9,"as":6.7,"prz":0.8,"blk":0.6,"fg":0.462,"tp":0.318,"ft":0.802},
+  {"id":1629008,"imie":"Michael","nazwisko":"Porter Jr.","druzyna":"BKN","pozycja":"F","numer":"17","mecze":52,"minuty":32.5,"pkt":24.2,"zb":7.1,"as":3,"prz":1.1,"blk":0.3,"fg":0.463,"tp":0.363,"ft":0.859},
+  {"id":1627783,"imie":"Pascal","nazwisko":"Siakam","druzyna":"IND","pozycja":"F","numer":"43","mecze":62,"minuty":33.2,"pkt":24,"zb":6.6,"as":3.8,"prz":1.1,"blk":0.4,"fg":0.484,"tp":0.358,"ft":0.693},
+  {"id":1630595,"imie":"Cade","nazwisko":"Cunningham","druzyna":"DET","pozycja":"G","numer":"2","mecze":64,"minuty":33.9,"pkt":23.9,"zb":5.5,"as":9.9,"prz":1.4,"blk":0.8,"fg":0.461,"tp":0.342,"ft":0.812},
+  {"id":201935,"imie":"James","nazwisko":"Harden","druzyna":"CLE","pozycja":"G","numer":"1","mecze":70,"minuty":34.8,"pkt":23.6,"zb":4.8,"as":8,"prz":1.1,"blk":0.4,"fg":0.434,"tp":0.375,"ft":0.884},
+  {"id":1641718,"imie":"Keyonte","nazwisko":"George","druzyna":"UTA","pozycja":"G","numer":"3","mecze":54,"minuty":33.1,"pkt":23.6,"zb":3.7,"as":6.1,"prz":1.1,"blk":0.3,"fg":0.456,"tp":0.371,"ft":0.892},
+  {"id":1630559,"imie":"Austin","nazwisko":"Reaves","druzyna":"LAL","pozycja":"G","numer":"15","mecze":51,"minuty":34.5,"pkt":23.3,"zb":4.7,"as":5.5,"prz":1.1,"blk":0.4,"fg":0.49,"tp":0.36,"ft":0.871}
+]
