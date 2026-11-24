@@ -1,3 +1,6 @@
+# Karta zgłoszenia projektu
+
+| Pole | Do uzupełnienia |
 |---|---|
 | Grupa laboratoryjna | lab/4/Inf-PAI NS |
 | Osoba 1 (imię, nazwisko, nr albumu) | Łukasz Gębski, 21269 |
