@@ -78,3 +78,24 @@ body,
     transform: none;
   }
 }
+
+/* ---------- Galeria: zdjęcie lekko się przybliża przy najechaniu / fokusie ---------- */
+.galeria-miniatura img {
+  transition: transform 0.3s ease-out;
+}
+
+.galeria-miniatura:hover img,
+.galeria-miniatura:focus-visible img {
+  transform: scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .galeria-miniatura img {
+    transition: none;
+  }
+
+  .galeria-miniatura:hover img,
+  .galeria-miniatura:focus-visible img {
+    transform: none;
+  }
+}

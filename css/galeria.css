@@ -1,1 +1,100 @@
 /* W6 – galeria · odpowiada: Łukasz */
+
+/* ---------- Siatka miniatur ---------- */
+/* auto-fill + minmax: tyle kolumn, ile się zmieści (1 na wąskim telefonie, 3–4 na monitorze) */
+.galeria-siatka {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  gap: var(--odstep-m);
+  margin: var(--odstep-l) 0;
+  padding: 0;
+  list-style: none;
+}
+
+.galeria-miniatura {
+  display: block;
+  overflow: hidden;                     /* powiększone zdjęcie nie wychodzi poza ramkę */
+  border-radius: var(--zaokraglenie);
+  background: var(--kolor-tlo-pole);
+}
+
+.galeria-miniatura img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;                  /* równe kafelki, nawet gdy zdjęcia mają różne proporcje */
+  object-fit: cover;                    /* kadrujemy zamiast zniekształcać */
+}
+
+.galeria-miniatura:focus-visible {
+  outline: 3px solid var(--kolor-akcent);
+  outline-offset: 3px;
+}
+
+.galeria-tytul {
+  margin: var(--odstep-xs) 0 0;
+  font-size: var(--rozmiar-maly);
+  color: var(--kolor-tekst-slaby);
+}
+
+.galeria-licencje {
+  font-size: var(--rozmiar-maly);
+  color: var(--kolor-tekst-slaby);
+}
+
+.galeria-licencje summary {
+  min-height: 2.75rem;
+  padding: var(--odstep-s) 0;
+  cursor: pointer;
+}
+
+/* ---------- Podgląd w <dialog> ---------- */
+.galeria-podglad {
+  width: min(92vw, 64rem);
+  max-height: 92vh;
+  padding: var(--odstep-m);
+  border: 0;
+  border-radius: var(--zaokraglenie);
+  background: var(--kolor-tlo);
+  color: var(--kolor-tekst);
+}
+
+/* ::backdrop – warstwa pod modalnym oknem, przyciemnia resztę strony */
+.galeria-podglad::backdrop {
+  background: rgb(0 0 0 / 0.85);
+}
+
+.galeria-podglad figure {
+  margin: 0;
+}
+
+.galeria-duze {
+  width: 100%;
+  max-height: calc(92vh - 8rem);        /* miejsce na podpis pod zdjęciem */
+  object-fit: contain;                  /* całe zdjęcie, bez kadrowania */
+}
+
+.galeria-podglad figcaption {
+  margin-top: var(--odstep-s);
+  font-size: var(--rozmiar-maly);
+}
+
+.galeria-zamknij {
+  position: absolute;
+  top: var(--odstep-s);
+  right: var(--odstep-s);
+  display: grid;
+  place-items: center;
+  width: 2.75rem;                       /* cel dotyku 44 × 44 px */
+  height: 2.75rem;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.6);
+  color: #ffffff;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+/* Gdy podgląd jest otwarty, strona pod spodem się nie przewija */
+body:has(.galeria-podglad[open]) {
+  overflow: hidden;
+}
