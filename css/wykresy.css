@@ -1,5 +1,3 @@
-/* W3 – wykresy D3 · odpowiada: Artur */
-
 .wykres {
   margin: 1rem 0 0;
 }
@@ -41,5 +39,138 @@
 .wykres-zrodlo {
   margin-top: 0.5rem;
   font-size: 0.85rem;
-  color: #555555;
+  color: var(--kolor-tekst-slaby);   /* zmienna Łukasza – czytelna w trybie jasnym i ciemnym */
+}
+
+/* ---------- Sterowanie wykresem 1: drużyny i zakres dat ---------- */
+.wykres-sterowanie {
+  display: grid;
+  gap: var(--odstep-m);
+  margin-top: var(--odstep-m);
+}
+
+/* Od tabletu: drużyny i daty obok siebie */
+@media (min-width: 48rem) {
+  .wykres-sterowanie {
+    grid-template-columns: 3fr 2fr;
+    align-items: start;
+  }
+}
+
+.wykres-sterowanie fieldset {
+  margin: 0;
+  padding: var(--odstep-s) var(--odstep-m) var(--odstep-m);
+  border: 1px solid var(--kolor-obramowanie);
+  border-radius: var(--zaokraglenie);
+}
+
+.wykres-sterowanie legend {
+  padding: 0 var(--odstep-xs);
+  font-weight: 700;
+}
+
+.wykres-licznik {
+  font-weight: 400;
+  color: var(--kolor-tekst-slaby);
+}
+
+.wykres-zestawy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--odstep-s);
+}
+
+.wykres-zestawy button {
+  min-height: 2.75rem;                  /* cel dotyku 44 px */
+  padding: 0 0.75rem;
+  border: 1px solid var(--kolor-obramowanie);
+  border-radius: var(--zaokraglenie);
+  background: var(--kolor-tlo);
+  color: var(--kolor-tekst);
+  cursor: pointer;
+}
+
+.wykres-zestawy button:hover {
+  border-color: var(--kolor-akcent);
+}
+
+.wykres-lista {
+  margin-top: var(--odstep-s);
+}
+
+.wykres-lista summary {
+  min-height: 2.75rem;
+  padding: var(--odstep-s) 0;
+  cursor: pointer;
+}
+
+/* Dwie konferencje obok siebie, w każdej siatka checkboxów */
+.wykres-konferencje {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: var(--odstep-s) var(--odstep-m);
+}
+
+.wykres-konferencje fieldset {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+  gap: 0 var(--odstep-s);
+  padding: var(--odstep-xs) var(--odstep-s) var(--odstep-s);
+}
+
+.wykres-konferencje label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 2rem;
+  cursor: pointer;
+}
+
+/* Próbka koloru linii obok zaznaczonej drużyny – kolor ustawia JS w zmiennej --kolor-druzyny */
+.probka {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 2px;
+  background: var(--kolor-druzyny, transparent);
+}
+
+.wykres-bilans {
+  font-size: var(--rozmiar-maly);
+  color: var(--kolor-tekst-slaby);
+}
+
+.wykres-konferencje input:disabled + .probka,
+.wykres-konferencje label:has(input:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Suwaki dat: etykieta | suwak | data */
+.wykres-daty {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--odstep-s);
+}
+
+.wykres-daty input[type="range"] {
+  width: 100%;
+  min-height: 2.75rem;
+  accent-color: var(--kolor-akcent);   /* kolor suwaka zgodny z akcentem strony */
+}
+
+.wykres-daty output {
+  min-width: 7.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Treść tylko dla czytnika ekranu: niewidoczna, ale nie display:none (wtedy czytnik też by jej nie widział) */
+.wykres-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }

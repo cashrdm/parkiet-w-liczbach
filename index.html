@@ -99,14 +99,42 @@
       </div>
     </section>
 
-    <!-- SEZON · W3 wykres 1 · odpowiada: Artur -->
-    <section id="sezon" class="sekcja" aria-labelledby="sezon-tytul">
+   <section id="sezon" class="sekcja" aria-labelledby="sezon-tytul">
       <h2 id="sezon-tytul">Wyścig sezonu</h2>
-      <p>Jak zmieniał się bilans zwycięstw drużyn w trakcie sezonu.</p>
+      <p>Jak zmieniał się bilans zwycięstw drużyn w trakcie sezonu. Wybierz drużyny i okres, który chcesz porównać.</p>
+
+      <div class="wykres-sterowanie">
+        <fieldset class="wykres-druzyny">
+          <legend>Drużyny <span class="wykres-licznik"></span></legend>
+          <div class="wykres-zestawy">
+            <button type="button" data-zestaw="najlepsze">6 najlepszych</button>
+            <button type="button" data-zestaw="wschod">Czołówka Wschodu</button>
+            <button type="button" data-zestaw="zachod">Czołówka Zachodu</button>
+            <button type="button" data-zestaw="brak">Wyczyść</button>
+          </div>
+          <details class="wykres-lista">
+            <summary>Wszystkie drużyny (maks. 8 naraz)</summary>
+            <div class="wykres-konferencje"></div>
+          </details>
+        </fieldset>
+
+        <fieldset class="wykres-daty">
+          <legend>Zakres dat</legend>
+          <label for="sezon-od">Od</label>
+          <input type="range" id="sezon-od">
+          <output for="sezon-od"></output>
+          <label for="sezon-do">Do</label>
+          <input type="range" id="sezon-do">
+          <output for="sezon-do"></output>
+        </fieldset>
+      </div>
+
       <figure class="wykres" id="wykres-sezon">
         <div class="wykres-obszar"></div>
         <figcaption class="wykres-zrodlo">Źródło: NBA.com/stats.</figcaption>
       </figure>
+      <!-- Ogłoszenie dla czytnika ekranu po każdej zmianie (niewidoczne na ekranie) -->
+      <p class="wykres-status" aria-live="polite"></p>
     </section>
 
     <!-- ZAWODNICY · W3 wykres 2 · odpowiada: Artur (karty 3D: Łukasz) -->
