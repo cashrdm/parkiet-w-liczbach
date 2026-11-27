@@ -274,8 +274,19 @@
       <!-- Podgląd: natywny element <dialog> – Esc zamyka, fokus jest uwięziony w oknie, tło jest nieaktywne -->
       <dialog class="galeria-podglad" aria-labelledby="galeria-podpis">
         <figure>
-          <img class="galeria-duze" src="" alt="" sizes="(min-width: 64rem) 60rem, 92vw">
+          <!-- Pole zdjęcia: strzałki po bokach, gest przesunięcia palcem/myszą (Pointer Events) -->
+          <div class="galeria-scena">
+            <img class="galeria-duze" alt="" sizes="(min-width: 64rem) 60rem, 92vw">
+            <button type="button" class="galeria-poprzednie" aria-label="Poprzednie zdjęcie">
+              <svg class="ikona" aria-hidden="true"><use href="./svg/ikony.svg#ikona-lewo"/></svg>
+            </button>
+            <button type="button" class="galeria-nastepne" aria-label="Następne zdjęcie">
+              <svg class="ikona" aria-hidden="true"><use href="./svg/ikony.svg#ikona-prawo"/></svg>
+            </button>
+          </div>
           <figcaption id="galeria-podpis"></figcaption>
+          <!-- Licznik „3 z 9” – aria-live: czytnik ekranu ogłosi go po zmianie zdjęcia -->
+          <p class="galeria-licznik" aria-live="polite"></p>
         </figure>
         <!-- autofocus: po otwarciu okna fokus trafia na „Zamknij”, a nie na link w podpisie -->
         <button type="button" class="galeria-zamknij" aria-label="Zamknij podgląd" autofocus>

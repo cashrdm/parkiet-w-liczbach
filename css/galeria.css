@@ -98,3 +98,47 @@
 body:has(.galeria-podglad[open]) {
   overflow: hidden;
 }
+
+/* ---------- Przechodzenie między zdjęciami (etap 2) ---------- */
+.galeria-scena {
+  position: relative;                   /* punkt odniesienia dla strzałek */
+  touch-action: pan-y;                  /* poziomy ruch palcem obsługujemy sami (gest), pionowy zostaje przeglądarce */
+  user-select: none;                    /* przeciąganie myszą nie zaznacza tekstu */
+}
+
+.galeria-duze {
+  -webkit-user-drag: none;              /* przeciągnięcie myszą to nasz gest, a nie „przeciągnij obrazek” */
+}
+
+.galeria-poprzednie,
+.galeria-nastepne {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;                       /* cel dotyku 44 × 44 px */
+  height: 2.75rem;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.6);
+  color: #ffffff;
+  font-size: 1.25rem;
+  transform: translateY(-50%);          /* wyśrodkowanie w pionie */
+  cursor: pointer;
+}
+
+.galeria-poprzednie { left: var(--odstep-s); }
+.galeria-nastepne { right: var(--odstep-s); }
+
+.galeria-poprzednie:focus-visible,
+.galeria-nastepne:focus-visible,
+.galeria-zamknij:focus-visible {
+  outline: 3px solid var(--kolor-akcent);
+  outline-offset: 2px;
+}
+
+.galeria-licznik {
+  margin: var(--odstep-xs) 0 0;
+  font-size: var(--rozmiar-maly);
+  color: var(--kolor-tekst-slaby);
+}
