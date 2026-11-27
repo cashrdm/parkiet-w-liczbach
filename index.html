@@ -82,11 +82,32 @@
       <p>Skąd i jak skutecznie rzucali najlepsi zawodnicy ligi.</p>
       <div class="scena">
         <div class="scena-sterowanie">
+          <button type="button" class="scena-poprzedni" aria-label="Poprzedni zawodnik">
+            <svg class="ikona" aria-hidden="true"><use href="./svg/ikony.svg#ikona-lewo"/></svg>
+          </button>
           <label for="scena-zawodnik">Zawodnik</label>
           <select id="scena-zawodnik"></select>
+          <button type="button" class="scena-nastepny" aria-label="Następny zawodnik">
+            <svg class="ikona" aria-hidden="true"><use href="./svg/ikony.svg#ikona-prawo"/></svg>
+          </button>
+
+          <fieldset class="scena-kwarty">
+            <legend>Kwarta</legend>
+            <label><input type="radio" name="scena-kwarta" value="0" checked> wszystkie</label>
+            <label><input type="radio" name="scena-kwarta" value="1"> 1.</label>
+            <label><input type="radio" name="scena-kwarta" value="2"> 2.</label>
+            <label><input type="radio" name="scena-kwarta" value="3"> 3.</label>
+            <label><input type="radio" name="scena-kwarta" value="4"> 4.</label>
+            <label><input type="radio" name="scena-kwarta" value="5"> dogrywki</label>
+          </fieldset>
+
+          <label class="scena-przelacznik">
+            <input type="checkbox" id="scena-heatmapa"> heatmapa
+          </label>
         </div>
         <div class="scena-plotno">
-          <canvas id="parkiet" role="img" aria-label="Połowa boiska do koszykówki">
+          <canvas id="parkiet" role="img" aria-label="Połowa boiska do koszykówki"
+                  tabindex="0" aria-describedby="scena-klawisze">
             Twoja przeglądarka nie obsługuje elementu canvas.
           </canvas>
           <div class="scena-dymek" hidden></div>
@@ -94,6 +115,13 @@
         <p class="scena-legenda">
           <span><span class="znak-celny" aria-hidden="true">●</span> rzut celny</span>
           <span><span class="znak-niecelny" aria-hidden="true">✕</span> rzut niecelny</span>
+        </p>
+        <p class="scena-legenda scena-legenda-heatmapy" hidden>
+          Heatmapa: kolor pola = skuteczność, 30%<span class="scena-skala" aria-hidden="true"></span>60%;
+          pola z co najmniej 3 rzutami.
+        </p>
+        <p class="scena-podpowiedz" id="scena-klawisze">
+          Klawiatura (po zaznaczeniu mapy klawiszem Tab): ← → zawodnik, 0–4 kwarta (0 = wszystkie), 5 dogrywki, H heatmapa.
         </p>
         <!-- aria-live: czytnik ekranu przeczyta nowy opis po zmianie zawodnika -->
         <p class="scena-podsumowanie" aria-live="polite"></p>

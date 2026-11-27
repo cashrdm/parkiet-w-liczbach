@@ -2,6 +2,7 @@
 // Etap 1: rysowanie połowy parkietu, ostrość na ekranach o dużej gęstości pikseli (devicePixelRatio).
 // Etap 2: rzuty wybranego zawodnika z data/rzuty.json, animacja pojawiania w pętli requestAnimationFrame.
 // Etap 3: strefy rzutowe, hit-test pod kursorem, dymek ze skutecznością, pulsowanie wskazanej strefy.
+// Etap 4: filtr kwart, obsługa klawiatury, tryb heatmapy (siatka pól, kolor = skuteczność).
 
 import { wczytaj, formatProcent, odmiana } from './dane.js';
 import { mniejRuchu } from './config.js';
@@ -33,13 +34,23 @@ const CZAS_POJAWIANIA = 1500;
 const CZAS_SPADANIA = 300;
 const PROMIEN_RZUTU = 4; // w jednostkach boiska (0,4 stopy)
 
+// Heatmapa: pole 25 × 25 jednostek (2,5 × 2,5 stopy); pola z mniejszą liczbą rzutów pomijamy
+const BOK_POLA = 25;
+const MIN_PROB_POLA = 3;
+
+const NAZWY_KWART = ['wszystkie kwarty', '1. kwarta', '2. kwarta', '3. kwarta', '4. kwarta', 'dogrywki'];
+
 // ---------- Stan modułu ----------
 // Wszystko, co się zmienia, trzymamy w jednym obiekcie – łatwo sprawdzić w konsoli i wyjaśnić.
 const stan = {
   zawodnicy: [],      // z zawodnicy.json
   rzuty: {},          // z rzuty.json: id zawodnika → [[x, y, celny, kwarta], …]
   zawodnik: null,     // aktualnie wybrany zawodnik
-  widoczne: [],       // rzuty, które rysujemy: { x, y, celny, kwarta, strefa }
+  wszystkie: [],      // wszystkie rzuty wybranego zawodnika: { x, y, celny, kwarta, strefa }
+  widoczne: [],       // rzuty po filtrze kwarty – te rysujemy
+  kwarta: 0,          // filtr: 0 = wszystkie, 1–4, 5 = dogrywki
+  heatmapa: false,    // tryb: false = pojedyncze rzuty, true = siatka skuteczności
+  siatka: [],         // pola heatmapy: { kolumna, wiersz, proby, celne }
   statystykiStref: new Map(), // nazwa strefy → { proby, celne }
   podswietlona: null, // strefa pod kursorem (null = żadna)
   naEkranie: true,    // czy mapa jest widoczna (IntersectionObserver)
@@ -53,6 +64,8 @@ const ctx = canvas ? canvas.getContext('2d') : null;
 const wybor = document.getElementById('scena-zawodnik');
 const podsumowanie = document.querySelector('.scena-podsumowanie');
 const dymek = document.querySelector('.scena-dymek');
+const przelacznikHeatmapy = document.getElementById('scena-heatmapa');
+const legendaHeatmapy = document.querySelector('.scena-legenda-heatmapy');
 
 // Ile pikseli CSS przypada na 1 jednostkę boiska (np. canvas 500 px szerokości → 1 px na jednostkę)
 let skala = 1;
@@ -170,6 +183,25 @@ function policzStrefy(rzuty) {
   return strefy;
 }
 
+/**
+ * Heatmapa: dzielimy boisko na kwadraty BOK_POLA × BOK_POLA i w każdym liczymy próby i celne.
+ * Klucz pola to numer kolumny i wiersza, np. "12,3".
+ */
+function policzSiatke(rzuty) {
+  const pola = new Map();
+  for (const r of rzuty) {
+    if (r.y > BOISKO.dol) continue;
+    const kolumna = Math.floor((r.x - BOISKO.lewo) / BOK_POLA);
+    const wiersz = Math.floor((r.y - BOISKO.gora) / BOK_POLA);
+    const klucz = `${kolumna},${wiersz}`;
+    const pole = pola.get(klucz) || { kolumna, wiersz, proby: 0, celne: 0 };
+    pole.proby += 1;
+    pole.celne += r.celny;
+    pola.set(klucz, pole);
+  }
+  return [...pola.values()];
+}
+
 // ---------- Rysowanie ----------
 
 /**
@@ -202,12 +234,40 @@ function rysujRzut(x, y, celny, postep, mnoznik = 1, alfa = 0.75) {
 }
 
 /**
- * Rysuje całą scenę: boisko i rzuty.
+ * Heatmapa: kolor pola = skuteczność (czerwony 30% → żółty → zielony 60%),
+ * nieprzezroczystość = liczba prób (więcej rzutów = pewniejszy kolor).
+ * postep 0…1 – pola pojawiają się stopniowo, tak jak rzuty.
+ */
+function rysujHeatmape(postep) {
+  for (const pole of stan.siatka) {
+    if (pole.proby < MIN_PROB_POLA) continue; // 1–2 rzuty to przypadek, nie skuteczność
+
+    const skutecznosc = pole.celne / pole.proby;
+    const t = Math.min(1, Math.max(0, (skutecznosc - 0.3) / 0.3)); // 30% → 0, 60% → 1
+    ctx.fillStyle = `hsl(${Math.round(t * 120)} 75% 42%)`;          // odcień 0 = czerwony, 120 = zielony
+    ctx.globalAlpha = (0.35 + 0.6 * Math.min(1, pole.proby / 20)) * postep;
+    ctx.fillRect(
+      BOISKO.lewo + pole.kolumna * BOK_POLA + 1,
+      BOISKO.gora + pole.wiersz * BOK_POLA + 1,
+      BOK_POLA - 2,
+      BOK_POLA - 2,
+    );
+  }
+  ctx.globalAlpha = 1;
+}
+
+/**
+ * Rysuje całą scenę: boisko i rzuty (albo heatmapę).
  * @param {number} uplynelo – ile ms minęło od początku animacji (Infinity = wszystko już leży)
  * @param {number} teraz – aktualny czas, potrzebny do pulsowania podświetlonej strefy
  */
 function rysujScene(uplynelo = Infinity, teraz = 0) {
   rysujBoisko();
+
+  if (stan.heatmapa) {
+    rysujHeatmape(Math.min(1, uplynelo / CZAS_POJAWIANIA));
+    return;
+  }
 
   // Pulsowanie: sinus daje płynne wahanie od -1 do 1, czyli rozmiar od 1,0× do 1,6×.
   // Przy prefers-reduced-motion – stałe powiększenie bez ruchu.
@@ -244,7 +304,7 @@ function petla(teraz) {
   rysujScene(uplynelo, teraz);
 
   const trwaPojawianie = uplynelo < CZAS_POJAWIANIA + CZAS_SPADANIA;
-  const pulsuje = stan.podswietlona !== null && !mniejRuchu();
+  const pulsuje = stan.podswietlona !== null && !stan.heatmapa && !mniejRuchu();
   if (stan.naEkranie && (trwaPojawianie || pulsuje)) {
     stan.ramka = requestAnimationFrame(petla);
   }
@@ -253,6 +313,12 @@ function petla(teraz) {
 /** Uruchamia pętlę, jeśli jeszcze nie działa (nigdy dwie pętle naraz). */
 function uruchomPetle() {
   if (stan.ramka === null) stan.ramka = requestAnimationFrame(petla);
+}
+
+/** Animacja pojawiania od początku (przy prefers-reduced-motion – od razu wszystko). */
+function animujOdNowa() {
+  stan.startAnimacji = mniejRuchu() ? -Infinity : performance.now();
+  uruchomPetle();
 }
 
 // ---------- Hit-test i dymek ----------
@@ -297,27 +363,56 @@ function ukryjDymek() {
   uruchomPetle();
 }
 
-// ---------- Wybór zawodnika ----------
+// ---------- Wybór zawodnika i filtry ----------
 
-/** Zmiana zawodnika: nowe rzuty, statystyki stref, opis, animacja od początku. */
+/** Zmiana zawodnika: zamieniamy jego rzuty na obiekty ze strefą, potem stosujemy aktualny filtr kwarty. */
 function wybierzZawodnika(id) {
   stan.zawodnik = stan.zawodnicy.find((z) => String(z.id) === String(id));
+  wybor.value = stan.zawodnik.id;
 
   // Z tablic [x, y, celny, kwarta] robimy obiekty i od razu przypisujemy strefę (liczona raz, nie co klatkę)
-  stan.widoczne = (stan.rzuty[stan.zawodnik.id] || []).map(([x, y, celny, kwarta]) => (
+  stan.wszystkie = (stan.rzuty[stan.zawodnik.id] || []).map(([x, y, celny, kwarta]) => (
     { x, y, celny, kwarta, strefa: strefa(x, y) }
   ));
+  zastosujFiltr();
+}
+
+/** Poprzedni / następny zawodnik na liście (kierunek -1 lub +1), z zawinięciem na końcach. */
+function zmienZawodnika(kierunek) {
+  const i = stan.zawodnicy.indexOf(stan.zawodnik);
+  const nowy = (i + kierunek + stan.zawodnicy.length) % stan.zawodnicy.length;
+  wybierzZawodnika(stan.zawodnicy[nowy].id);
+}
+
+/** Filtr kwarty: 0 = wszystkie, 1–4 = kwarta, 5 = dogrywki (w danych 5, 6, …). */
+function ustawKwarte(kwarta) {
+  stan.kwarta = kwarta;
+  document.querySelector(`input[name="scena-kwarta"][value="${kwarta}"]`).checked = true;
+  zastosujFiltr();
+}
+
+function ustawHeatmape(wlaczona) {
+  stan.heatmapa = wlaczona;
+  przelacznikHeatmapy.checked = wlaczona;
+  legendaHeatmapy.hidden = !wlaczona;
+  animujOdNowa();
+}
+
+/** Liczy wszystko dla aktualnego zawodnika i kwarty, aktualizuje opis i uruchamia animację. */
+function zastosujFiltr() {
+  const k = stan.kwarta;
+  stan.widoczne = stan.wszystkie.filter((r) => k === 0 || (k === 5 ? r.kwarta >= 5 : r.kwarta === k));
   stan.statystykiStref = policzStrefy(stan.widoczne);
+  stan.siatka = policzSiatke(stan.widoczne);
 
   const celne = stan.widoczne.filter((r) => r.celny === 1).length;
   const proby = stan.widoczne.length;
   const nazwa = `${stan.zawodnik.imie} ${stan.zawodnik.nazwisko}`;
-  podsumowanie.textContent = `${nazwa}: ${proby} ${odmiana(proby, 'rzut', 'rzuty', 'rzutów')} z gry, trafione ${celne} (${formatProcent(celne / proby)}).`;
+  const skutecznosc = proby ? formatProcent(celne / proby) : '–';
+  podsumowanie.textContent = `${nazwa}, ${NAZWY_KWART[k]}: ${proby} ${odmiana(proby, 'rzut', 'rzuty', 'rzutów')} z gry, trafione ${celne} (${skutecznosc}).`;
   canvas.setAttribute('aria-label', `Mapa rzutów. ${podsumowanie.textContent}`);
 
-  // Przy prefers-reduced-motion pokazujemy wszystko od razu, bez spadania
-  stan.startAnimacji = mniejRuchu() ? -Infinity : performance.now();
-  uruchomPetle();
+  animujOdNowa();
 }
 
 /** Lista zawodników w <select>. */
@@ -328,7 +423,19 @@ function wypelnijWybor() {
     opcja.textContent = `${z.imie} ${z.nazwisko} (${z.druzyna})`;
     wybor.append(opcja);
   }
-  wybor.addEventListener('change', () => wybierzZawodnika(wybor.value));
+}
+
+// ---------- Klawiatura ----------
+// Skróty działają, gdy fokus jest na mapie (canvas ma tabindex="0"), więc nie kolidują
+// ze skrótami odtwarzacza ani galerii.
+function obsluzKlawisz(e) {
+  if (e.key === 'ArrowLeft') zmienZawodnika(-1);
+  else if (e.key === 'ArrowRight') zmienZawodnika(1);
+  else if (e.key >= '0' && e.key <= '5') ustawKwarte(Number(e.key));
+  else if (e.key === 'h' || e.key === 'H') ustawHeatmape(!stan.heatmapa);
+  else return; // inny klawisz – nie blokujemy jego domyślnego działania (np. Tab)
+
+  e.preventDefault(); // strzałki nie przewijają strony
 }
 
 async function start() {
@@ -355,6 +462,16 @@ async function start() {
   canvas.addEventListener('pointerleave', (e) => {
     if (e.pointerType !== 'touch') ukryjDymek();
   });
+  canvas.addEventListener('keydown', obsluzKlawisz);
+
+  // Kontrolki nad mapą
+  wybor.addEventListener('change', () => wybierzZawodnika(wybor.value));
+  document.querySelector('.scena-poprzedni').addEventListener('click', () => zmienZawodnika(-1));
+  document.querySelector('.scena-nastepny').addEventListener('click', () => zmienZawodnika(1));
+  document.querySelectorAll('input[name="scena-kwarta"]').forEach((radio) => {
+    radio.addEventListener('change', () => ustawKwarte(Number(radio.value)));
+  });
+  przelacznikHeatmapy.addEventListener('change', () => ustawHeatmape(przelacznikHeatmapy.checked));
 
   // Dane wczytuje wspólny moduł dane.js (Artura) – zawodnicy.json i rzuty.json naraz
   [stan.zawodnicy, stan.rzuty] = await Promise.all([wczytaj('zawodnicy'), wczytaj('rzuty')]);

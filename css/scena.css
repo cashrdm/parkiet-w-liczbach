@@ -64,3 +64,64 @@
   cursor: crosshair;
   touch-action: pan-y;         /* palcem nadal można przewijać stronę w pionie */
 }
+
+/* Przyciski poprzedni/następny z ikonami ze sprite'a Artura (svg/ikony.svg) */
+.scena-sterowanie button {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.scena-kwarty {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  margin: 0;
+  padding: 0.25rem 0.75rem 0.5rem;
+  border: 1px solid #cccccc;
+  border-radius: 0.25rem;
+}
+
+.scena-kwarty label,
+.scena-przelacznik {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 2rem;
+  cursor: pointer;
+}
+
+/* Fokus z klawiatury na mapie – wyraźny obrys (mapa reaguje na klawisze) */
+#parkiet:focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 3px;
+}
+
+.scena-podpowiedz {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  color: #555555;
+}
+
+/* Legenda heatmapy: zwykły akapit (nie flex); bez tej reguły display z .scena-legenda nadpisałby atrybut hidden */
+.scena-legenda-heatmapy {
+  display: block;
+}
+
+.scena-legenda-heatmapy[hidden] {
+  display: none;
+}
+
+/* Skala kolorów heatmapy – ten sam przedział co w scena.js (hsl 0 → 120) */
+.scena-skala {
+  display: inline-block;
+  width: 6rem;
+  height: 0.75rem;
+  margin: 0 0.25rem;
+  vertical-align: middle;
+  border-radius: 2px;
+  background: linear-gradient(to right, hsl(0 75% 42%), hsl(60 75% 42%), hsl(120 75% 42%));
+}
