@@ -195,10 +195,58 @@
       </div>
     </section>
 
-    <!-- NASZ MECZ · W5 multimedia · odpowiada: Czarek -->
+     <!-- MECZ 3×3 · W5 multimedia · odpowiada: Czarek -->
     <section id="nasz-mecz" class="sekcja" aria-labelledby="nasz-mecz-tytul">
-      <h2 id="nasz-mecz-tytul">Nasz mecz 3×3</h2>
-      <p>Skrót naszego meczu z tablicą wyników zsynchronizowaną z filmem.</p>
+      <h2 id="nasz-mecz-tytul">Mecz 3×3</h2>
+      <p>Fragment turnieju koszykówki 3×3 (ČBF 3x3 Tour, Ústí nad Labem, 2013) we własnym odtwarzaczu.</p>
+
+      <figure class="odtwarzacz">
+        <div class="odtwarzacz-ekran">
+          <!-- Atrybut controls jest tylko na wypadek braku JavaScriptu: skrypt go usuwa i pokazuje nasz pasek.
+               preload="metadata": na starcie przeglądarka pobiera tylko długość i wymiary, nie cały film. -->
+          <video class="odtwarzacz-wideo" controls preload="metadata" playsinline
+                 poster="./media/mecz-3x3-poster.jpg" width="854" height="480">
+            <source src="./media/mecz-3x3.webm" type="video/webm">
+            <p>Twoja przeglądarka nie odtworzy tego filmu. <a href="./media/mecz-3x3.webm">Pobierz plik WebM</a>.</p>
+          </video>
+        </div>
+
+        <!-- Własny pasek sterowania (ukryty, dopóki skrypt go nie włączy) -->
+        <div class="odtwarzacz-pasek" role="group" aria-label="Sterowanie filmem" hidden>
+          <button type="button" class="odtwarzacz-play" aria-label="Odtwórz">
+            <svg class="ikona" aria-hidden="true"><use href="./svg/ikony.svg#ikona-play"/></svg>
+          </button>
+
+          <input type="range" class="odtwarzacz-postep" min="0" max="0" step="0.1" value="0" aria-label="Postęp filmu">
+
+          <span class="odtwarzacz-czas"><span class="odtwarzacz-biezacy">0:00</span> / <span class="odtwarzacz-calosc">0:00</span></span>
+
+          <button type="button" class="odtwarzacz-wycisz" aria-label="Wycisz">
+            <svg class="ikona" aria-hidden="true"><use href="./svg/ikony.svg#ikona-glosnosc"/></svg>
+          </button>
+          <input type="range" class="odtwarzacz-glosnosc" min="0" max="1" step="0.05" value="1" aria-label="Głośność">
+
+          <label class="odtwarzacz-predkosc">
+            <span class="tylko-czytnik">Prędkość</span>
+            <select>
+              <option value="0.5">0,5×</option>
+              <option value="1" selected>1×</option>
+              <option value="1.5">1,5×</option>
+              <option value="2">2×</option>
+            </select>
+          </label>
+
+          <button type="button" class="odtwarzacz-pelny" aria-label="Pełny ekran">
+            <svg class="ikona" aria-hidden="true"><use href="./svg/ikony.svg#ikona-pelny-ekran"/></svg>
+          </button>
+        </div>
+
+        <figcaption>
+          Skróty (gdy fokus jest w odtwarzaczu): Spacja lub K – odtwórz/wstrzymaj, ← → – 5 s wstecz/naprzód, M – wycisz, F – pełny ekran.<br>
+          Film: Honza Nový, <a href="https://commons.wikimedia.org/wiki/File:%C4%8CBF_3x3_Tour_22.6._%C3%9Ast%C3%AD_nad_Labem.webm">„ČBF 3x3 Tour 22.6. Ústí nad Labem”</a>,
+          <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>, Wikimedia Commons (wersja 480p, obraz startowy z 15. sekundy).
+        </figcaption>
+      </figure>
     </section>
 
     <!-- GALERIA · W6 · odpowiada: Łukasz -->

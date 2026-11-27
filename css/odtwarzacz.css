@@ -1,1 +1,132 @@
 /* W5 – własny odtwarzacz wideo · odpowiada: Czarek */
+
+.odtwarzacz {
+  max-width: 54rem;
+  margin: var(--odstep-l) 0 0;
+}
+
+.odtwarzacz-ekran {
+  overflow: hidden;
+  border-radius: var(--zaokraglenie) var(--zaokraglenie) 0 0;
+  background: #000000;
+}
+
+.odtwarzacz-wideo {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;                 /* miejsce zarezerwowane przed wczytaniem – strona nie „skacze” */
+  cursor: pointer;
+}
+
+/* ---------- Pasek sterowania ---------- */
+.odtwarzacz-pasek {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--odstep-xs) var(--odstep-s);
+  padding: var(--odstep-s);
+  border-radius: 0 0 var(--zaokraglenie) var(--zaokraglenie);
+  background: #1a1a1a;
+  color: #ffffff;
+}
+
+.odtwarzacz-pasek[hidden] {
+  display: none;
+}
+
+.odtwarzacz-pasek button {
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;                       /* cel dotyku 44 × 44 px */
+  height: 2.75rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.odtwarzacz-pasek button:hover {
+  background: rgb(255 255 255 / 0.15);
+}
+
+.odtwarzacz-pasek :focus-visible {
+  outline: 3px solid #fdba74;            /* jasny pomarańcz – kontrast 10:1 na ciemnym pasku */
+  outline-offset: 2px;
+}
+
+/* Pasek postępu zajmuje całą wolną szerokość; na telefonie przechodzi do osobnego wiersza */
+.odtwarzacz-postep {
+  flex: 1 1 100%;
+  order: -1;                            /* wizualnie nad przyciskami – tak wyglądają typowe odtwarzacze */
+  min-height: 1.5rem;
+  accent-color: #fb923c;
+}
+
+@media (min-width: 40rem) {
+  .odtwarzacz-postep {
+    flex-basis: 8rem;
+    order: 0;
+  }
+}
+
+.odtwarzacz-czas {
+  font-variant-numeric: tabular-nums;   /* cyfry równej szerokości – licznik nie „drga” */
+  font-size: var(--rozmiar-maly);
+  white-space: nowrap;
+}
+
+.odtwarzacz-glosnosc {
+  width: 5rem;
+  accent-color: #fb923c;
+}
+
+.odtwarzacz-predkosc select {
+  min-height: 2.25rem;
+  border: 1px solid #555555;
+  border-radius: var(--zaokraglenie);
+  background: #1a1a1a;
+  color: #ffffff;
+}
+
+/* Tekst tylko dla czytnika ekranu (etykieta listy prędkości) */
+.tylko-czytnik {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.odtwarzacz figcaption {
+  margin-top: var(--odstep-s);
+  font-size: var(--rozmiar-maly);
+  color: var(--kolor-tekst-slaby);
+}
+
+/* ---------- Pełny ekran ---------- */
+/* :fullscreen – figure na całym ekranie: film wypełnia wszystko poza paskiem */
+.odtwarzacz:fullscreen {
+  display: flex;
+  flex-direction: column;
+  max-width: none;
+  margin: 0;
+  background: #000000;
+}
+
+.odtwarzacz:fullscreen .odtwarzacz-ekran {
+  flex: 1;
+  border-radius: 0;
+}
+
+.odtwarzacz:fullscreen .odtwarzacz-wideo {
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
+.odtwarzacz:fullscreen figcaption {
+  display: none;
+}
