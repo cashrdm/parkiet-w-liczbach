@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <!-- Sprite ikon projektu. Każda ikona to <symbol> z własnym id; na stronie używamy jej przez
+       <svg class="ikona"><use href="./svg/ikony.svg#ikona-play"/></svg>.
+       Wszystkie ikony mają siatkę 24×24 i kolor currentColor (biorą kolor tekstu przycisku). -->
+
+  <!-- Odtwarzacz -->
+  <symbol id="ikona-play" viewBox="0 0 24 24">
+    <path d="M8 5v14l11-7z" fill="currentColor"/>
+  </symbol>
+  <symbol id="ikona-pauza" viewBox="0 0 24 24">
+    <path d="M7 5h3v14H7zM14 5h3v14h-3z" fill="currentColor"/>
+  </symbol>
+  <symbol id="ikona-glosnosc" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 9h4l5-4v14l-5-4H4z"/>
+      <path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>
+    </g>
+  </symbol>
+  <symbol id="ikona-wycisz" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 9h4l5-4v14l-5-4H4z"/>
+      <path d="M17 9l5 6M22 9l-5 6"/>
+    </g>
+  </symbol>
+  <symbol id="ikona-napisy" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="5" width="18" height="14" rx="2"/>
+      <path d="M7 15h4M13 15h4M7 11h10"/>
+    </g>
+  </symbol>
+  <symbol id="ikona-pelny-ekran" viewBox="0 0 24 24">
+    <path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <!-- Nawigacja -->
+  <symbol id="ikona-lewo" viewBox="0 0 24 24">
+    <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="ikona-prawo" viewBox="0 0 24 24">
+    <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="ikona-zamknij" viewBox="0 0 24 24">
+    <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- Motyw jasny / ciemny -->
+  <symbol id="ikona-slonce" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <circle cx="12" cy="12" r="4"/>
+      <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+    </g>
+  </symbol>
+  <symbol id="ikona-ksiezyc" viewBox="0 0 24 24">
+    <path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  </symbol>
+</svg>

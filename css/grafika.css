@@ -59,3 +59,14 @@
   from { fill-opacity: 0; }
   to   { fill-opacity: 1; }
 }
+
+/* ---------- Ikony ze sprite'a (svg/ikony.svg) ---------- */
+/* Użycie: <svg class="ikona" aria-hidden="true"><use href="./svg/ikony.svg#ikona-play"/></svg>
+   Rozmiar = wysokość tekstu (1em), kolor = kolor tekstu (currentColor w symbolach). */
+.ikona {
+  display: inline-block;
+  width: 1.25em;
+  height: 1.25em;
+  vertical-align: -0.25em;   /* wyrównanie do linii tekstu */
+  flex-shrink: 0;
+}
