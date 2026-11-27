@@ -10,3 +10,57 @@
   aspect-ratio: 500 / 470;     /* proporcje połowy boiska: 50 × 47 stóp; wysokość liczy przeglądarka */
   border-radius: 0.25rem;
 }
+
+.scena-sterowanie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.scena-sterowanie select {
+  min-height: 2.75rem;         /* wygodny cel dotyku */
+  padding: 0 0.5rem;
+  font: inherit;
+}
+
+/* Legenda: te same kolory co w Canvas (KOLORY w scena.js) */
+.scena-legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+}
+
+.znak-celny,
+.znak-niecelny {
+  font-weight: 700;
+}
+
+.znak-celny { color: #1f7a35; }
+.znak-niecelny { color: #c92a2a; }
+
+/* Dymek ze skutecznością strefy – pozycję (left/top) ustawia scena.js obok kursora */
+.scena-dymek {
+  position: absolute;
+  z-index: 1;
+  max-width: 16rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.25rem;
+  background: rgba(26, 26, 26, 0.92);
+  color: #ffffff;
+  font-size: 0.85rem;
+  pointer-events: none;        /* dymek nie „łapie” kursora – zdarzenia dalej trafiają do canvas */
+  white-space: nowrap;
+}
+
+.scena-dymek[hidden] {
+  display: none;
+}
+
+#parkiet {
+  cursor: crosshair;
+  touch-action: pan-y;         /* palcem nadal można przewijać stronę w pionie */
+}
