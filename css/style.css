@@ -155,6 +155,106 @@ a {
   padding-inline: max(var(--margines-boczny), calc((100% - var(--szerokosc-tresci)) / 2 + var(--margines-boczny)));
 }
 
+/* ---------- Sekcja START: karty liderów ---------- */
+/* Siatka: tyle kolumn, ile się zmieści (min. 10rem) – 2 na telefonie, 4 na monitorze, bez media queries */
+.karty-liderow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--odstep-m);
+  margin: var(--odstep-l) 0 var(--odstep-s);
+  padding: 0;
+  list-style: none;
+}
+
+.karta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  height: 100%;
+  padding: var(--odstep-m);
+  border: 1px solid var(--kolor-obramowanie);
+  border-left: 4px solid var(--kolor-akcent);
+  border-radius: var(--zaokraglenie);
+  background: var(--kolor-tlo-pole);
+  color: var(--kolor-tekst);
+  text-decoration: none;
+}
+
+.karta-etykieta,
+.karta-opis {
+  font-size: var(--rozmiar-maly);
+}
+
+.karta-etykieta {
+  color: var(--kolor-tekst-slaby);
+}
+
+.karta-wartosc {
+  font-size: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;   /* cyfry o równej szerokości */
+}
+
+.przypis {
+  font-size: var(--rozmiar-maly);
+  color: var(--kolor-tekst-slaby);
+}
+
+/* ---------- Sekcja START: ticker najlepszych strzelców ---------- */
+.ticker {
+  display: flex;
+  align-items: center;
+  gap: var(--odstep-s);
+  margin-top: var(--odstep-l);
+  padding-block: var(--odstep-xs);
+  border-block: 1px solid var(--kolor-obramowanie);
+}
+
+.ticker[hidden] {
+  display: none;
+}
+
+.ticker-pauza {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2.75rem;                  /* cel dotyku 44 px */
+  padding: 0 0.75rem;
+  border: 1px solid var(--kolor-obramowanie);
+  border-radius: var(--zaokraglenie);
+  background: var(--kolor-tlo);
+  color: var(--kolor-tekst);
+  cursor: pointer;
+}
+
+/* Okno, przez które widać przesuwającą się taśmę; brzegi łagodnie zanikają (maska) */
+.ticker-okno {
+  flex: 1;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 1.5rem, #000 calc(100% - 1.5rem), transparent);
+}
+
+.ticker-tasma {
+  display: flex;
+  width: max-content;                   /* taśma tak szeroka jak jej treść, nie jak okno */
+}
+
+.ticker-tasma ul {
+  display: flex;
+  gap: var(--odstep-l);
+  margin: 0;
+  padding: 0 var(--odstep-l) 0 0;       /* odstęp między kopiami = odstęp między elementami → płynna pętla */
+  list-style: none;
+  white-space: nowrap;
+}
+
+.ticker-tasma span {
+  font-size: var(--rozmiar-maly);
+  color: var(--kolor-tekst-slaby);
+}
+
 /* ---------- Link „Pomiń do treści” ---------- */
 /* Schowany nad krawędzią ekranu (nie display:none – wtedy czytniki ekranu i Tab by go pominęły).
    Wjeżdża na ekran, gdy dostanie fokus z klawiatury. */

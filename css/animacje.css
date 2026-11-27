@@ -1,1 +1,66 @@
-/* W1 – animacje CSS: transition, transform, @keyframes, prefers-reduced-motion · odpowiada: Łukasz */
+/* W1 – animacje CSS: transition, transform, @keyframes, prefers-reduced-motion · odpowiada: Łukasz
+   Animujemy wyłącznie transform i opacity (+ kolory/cień przy hover): transform obsługuje kompozytor (GPU),
+   nie wywołuje ponownego układu strony (reflow), więc ruch jest płynny. */
+
+/* ---------- transition: płynna zmiana stanu zamiast skoku ---------- */
+.nawigacja a,
+.ticker-pauza,
+.karta {
+  transition-property: color, background-color, border-color, box-shadow, transform;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+}
+
+.ticker-pauza:hover {
+  border-color: var(--kolor-akcent);
+  background: var(--kolor-tlo-pole);
+}
+
+/* ---------- transform 2D: karta „unosi się” po najechaniu myszą albo fokusie z klawiatury ---------- */
+.karta:hover,
+.karta:focus-visible {
+  border-color: var(--kolor-akcent);
+  box-shadow: 0 0.5rem 1.25rem rgb(0 0 0 / 0.12);
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* ---------- @keyframes: ticker przesuwający się w pętli ---------- */
+/* Taśma zawiera listę dwa razy, więc przesunięcie o -50% kończy się w tym samym miejscu, w którym zaczęło */
+@keyframes przewijanie-tickera {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.ticker-tasma {
+  /* czas okrążenia liczy main.js z długości taśmy (stała prędkość); 40 s to wartość zapasowa */
+  animation: przewijanie-tickera var(--czas-tickera, 40s) linear infinite;
+}
+
+/* Pauza: przyciskiem (WCAG 2.2.2) albo najechaniem myszą na pasek, żeby dało się przeczytać nazwisko */
+.ticker--wstrzymany .ticker-tasma,
+.ticker-okno:hover .ticker-tasma {
+  animation-play-state: paused;
+}
+
+/* ---------- prefers-reduced-motion: użytkownik prosi o ograniczenie ruchu ---------- */
+@media (prefers-reduced-motion: reduce) {
+  /* Ticker stoi; zamiast ruchu można przewinąć pasek ręcznie. Druga kopia i pauza są wtedy zbędne. */
+  .ticker-tasma {
+    animation: none;
+  }
+
+  .ticker-okno {
+    overflow-x: auto;
+  }
+
+  .ticker-tasma ul[aria-hidden="true"],
+  .ticker-pauza {
+    display: none;
+  }
+
+  /* Karta nie „skacze” – zostaje tylko zmiana obramowania i cienia */
+  .karta:hover,
+  .karta:focus-visible {
+    transform: none;
+  }
+}

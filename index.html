@@ -62,6 +62,20 @@
     <section id="start" class="sekcja" aria-labelledby="start-tytul">
       <h1 id="start-tytul">Sezon NBA 2025/26 w liczbach</h1>
       <p>Interaktywne podsumowanie sezonu zasadniczego na podstawie oficjalnych statystyk ligi.</p>
+
+      <!-- Karty liderów: treść wstawia main.js z plików data/*.json -->
+      <ul class="karty-liderow" aria-label="Liderzy sezonu"></ul>
+
+      <!-- Ticker najlepszych strzelców: przesuwa się w pętli, ma przycisk pauzy (WCAG 2.2.2) -->
+      <div class="ticker" role="region" aria-label="Najlepsi strzelcy sezonu" hidden>
+        <button type="button" class="ticker-pauza">
+          <svg class="ikona" aria-hidden="true"><use href="./svg/ikony.svg#ikona-pauza"/></svg>
+          <span class="ticker-pauza-tekst">Wstrzymaj</span>
+        </button>
+        <div class="ticker-okno">
+          <div class="ticker-tasma"></div>
+        </div>
+      </div>
     </section>
 
     <!-- SEZON · W3 wykres 1 · odpowiada: Artur -->
