@@ -16,6 +16,13 @@
   background: var(--kolor-tlo-pole);
 }
 
+/* Przełączenie motywu: tło i tekst zmieniają się płynnie, a nie skokowo */
+body,
+.naglowek,
+.przelacznik-motywu {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
 /* ---------- transform 2D: karta „unosi się” po najechaniu myszą albo fokusie z klawiatury ---------- */
 .karta:hover,
 .karta:focus-visible {
@@ -44,6 +51,13 @@
 
 /* ---------- prefers-reduced-motion: użytkownik prosi o ograniczenie ruchu ---------- */
 @media (prefers-reduced-motion: reduce) {
+  /* Zmiana motywu natychmiast */
+  body,
+  .naglowek,
+  .przelacznik-motywu {
+    transition: none;
+  }
+
   /* Ticker stoi; zamiast ruchu można przewinąć pasek ręcznie. Druga kopia i pauza są wtedy zbędne. */
   .ticker-tasma {
     animation: none;

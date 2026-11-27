@@ -6,6 +6,18 @@
   <title>Parkiet w liczbach – sezon NBA 2025/26</title>
   <meta name="description" content="Interaktywne podsumowanie sezonu zasadniczego NBA 2025/26: przebieg rywalizacji drużyn, porównanie zawodników i mapy rzutów.">
 
+  <!-- Motyw jasny/ciemny ustawiamy PRZED narysowaniem strony (zwykły skrypt w <head>, bez defer),
+       żeby przy zapisanym trybie ciemnym nie mignęła jasna wersja. Kolejność: zapisany wybór → ustawienie systemu.
+       try/catch: localStorage bywa zablokowany (tryb prywatny, blokada ciasteczek). -->
+  <script>
+    try {
+      document.documentElement.dataset.motyw = localStorage.getItem('motyw')
+        || (matchMedia('(prefers-color-scheme: dark)').matches ? 'ciemny' : 'jasny');
+    } catch {
+      document.documentElement.dataset.motyw = 'jasny';
+    }
+  </script>
+
   <!-- Style: wspólne + jeden plik na moduł (każdy moduł rozwija inna osoba, bez konfliktów w Git) -->
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/animacje.css">
@@ -53,6 +65,11 @@
         <li><a href="#o-projekcie">O projekcie</a></li>
       </ul>
     </nav>
+
+    <!-- Przełącznik motywu: aria-pressed mówi czytnikowi ekranu, czy tryb ciemny jest włączony -->
+    <button type="button" class="przelacznik-motywu" aria-pressed="false" aria-label="Tryb ciemny">
+      <svg class="ikona" aria-hidden="true"><use href="./svg/ikony.svg#ikona-ksiezyc"/></svg>
+    </button>
   </header>
 
   <!-- tabindex="-1": po kliknięciu „Pomiń do treści” fokus trafia do <main>,

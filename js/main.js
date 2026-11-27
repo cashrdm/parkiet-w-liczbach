@@ -107,3 +107,39 @@ Promise.all([wczytaj('druzyny'), wczytaj('zawodnicy')])
     ticker(zawodnicy);
   })
   .catch((blad) => console.error(blad)); // bez danych sekcja start pokazuje sam tytuł i opis
+
+// ======================================================================
+// Motyw jasny / ciemny
+// Startowy motyw ustawia już skrypt w <head> (bez mignięcia). Tu obsługujemy przełącznik.
+// ======================================================================
+const html = document.documentElement;
+const przelacznikMotywu = document.querySelector('.przelacznik-motywu');
+const systemCiemny = matchMedia('(prefers-color-scheme: dark)');
+
+/** Ustawia motyw na stronie i stan przycisku (aria-pressed + ikona: księżyc = włącz ciemny, słońce = włącz jasny). */
+function pokazMotyw(motyw) {
+  html.dataset.motyw = motyw;
+  const ciemny = motyw === 'ciemny';
+  przelacznikMotywu.setAttribute('aria-pressed', String(ciemny));
+  przelacznikMotywu.querySelector('use').setAttribute('href', `./svg/ikony.svg#ikona-${ciemny ? 'slonce' : 'ksiezyc'}`);
+}
+
+/** Zapisany wybór użytkownika albo null (localStorage może być zablokowany – wtedy działamy bez zapamiętywania). */
+function zapisanyMotyw() {
+  try { return localStorage.getItem('motyw'); } catch { return null; }
+}
+
+if (przelacznikMotywu) {
+  pokazMotyw(html.dataset.motyw || 'jasny');
+
+  przelacznikMotywu.addEventListener('click', () => {
+    const nowy = html.dataset.motyw === 'ciemny' ? 'jasny' : 'ciemny';
+    pokazMotyw(nowy);
+    try { localStorage.setItem('motyw', nowy); } catch { /* bez zapisu – motyw działa do odświeżenia */ }
+  });
+
+  // Użytkownik zmienił motyw systemu (np. automatycznie wieczorem) i nie wybrał ręcznie – idziemy za systemem
+  systemCiemny.addEventListener('change', (e) => {
+    if (!zapisanyMotyw()) pokazMotyw(e.matches ? 'ciemny' : 'jasny');
+  });
+}

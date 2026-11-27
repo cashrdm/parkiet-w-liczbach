@@ -41,6 +41,23 @@
   --wysokosc-naglowka: 4.5rem;                             /* na tyle przewijamy sekcję pod przyklejonym menu */
 }
 
+/* Tryb ciemny: te same nazwy zmiennych, inne wartości. Atrybut data-motyw na <html> ustawia
+   skrypt w <head> (zapisany wybór albo ustawienie systemu) i przełącznik w nagłówku (main.js).
+   Kontrast sprawdzony tak samo jak w trybie jasnym (wartości przy kolorach). */
+:root[data-motyw="ciemny"] {
+  color-scheme: dark;                  /* ciemne kontrolki formularzy i paski przewijania przeglądarki */
+  --kolor-tlo: #121212;
+  --kolor-tlo-pole: #1e1e1e;
+  --kolor-tekst: #ececec;              /* 15,9:1 */
+  --kolor-tekst-slaby: #b3b3b3;        /* 8,9:1 */
+  --kolor-akcent: #fb923c;             /* 8,3:1 */
+  --kolor-link: #fdba74;               /* 11,1:1 */
+  --kolor-obramowanie: #333333;
+  --kolor-stopka-tlo: #000000;
+  --kolor-stopka-tekst: #ececec;       /* 17,8:1 */
+  --kolor-stopka-link: #fdba74;        /* 12,5:1 */
+}
+
 /* ==========================================================================
    2. Reset i elementy podstawowe
    ========================================================================== */
@@ -331,6 +348,52 @@ a {
   border-bottom-color: var(--kolor-akcent);
 }
 
+/* ---------- Przełącznik motywu ---------- */
+.przelacznik-motywu {
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 2.75rem;                       /* cel dotyku 44 × 44 px */
+  height: 2.75rem;
+  border: 1px solid var(--kolor-obramowanie);
+  border-radius: 50%;
+  background: var(--kolor-tlo);
+  color: var(--kolor-tekst);
+  cursor: pointer;
+}
+
+.przelacznik-motywu:hover {
+  border-color: var(--kolor-akcent);
+}
+
+/* Telefon i tablet: logo w pierwszym wierszu, w drugim menu (zajmuje wolne miejsce) i przełącznik po prawej.
+   Kolejność na ekranie = kolejność w HTML = kolejność klawisza Tab (bez właściwości order). */
+.logo {
+  flex-basis: 100%;
+}
+
+.nawigacja {
+  flex: 1;
+}
+
+.przelacznik-motywu {
+  align-self: flex-start;               /* na wysokości pierwszej linijki menu, nie na środku */
+}
+
+/* Wykres i mapa rzutów mają kolory dobrane do jasnego tła (kontrast linii, legend i parkietu),
+   więc w trybie ciemnym stoją na jasnym „panelu” – czytelność danych jest ważniejsza niż jednolity motyw. */
+:root[data-motyw="ciemny"] .wykres svg,
+:root[data-motyw="ciemny"] .scena {
+  color-scheme: light;                  /* kontrolki w panelu (lista, przyciski) zostają jasne */
+  border-radius: var(--zaokraglenie);
+  background: #ffffff;
+  color: #1a1a1a;
+}
+
+:root[data-motyw="ciemny"] .scena {
+  padding: var(--odstep-m);
+}
+
 /* ---------- Stopka ---------- */
 .stopka {
   padding-block: var(--odstep-l);
@@ -372,6 +435,20 @@ a {
     top: 0;
     z-index: 10;
     flex-wrap: nowrap;
+  }
+
+  /* Jeden wiersz: logo | menu | przełącznik */
+  .logo {
+    flex-basis: auto;
+  }
+
+  .nawigacja {
+    flex: 0 1 auto;
+    margin-left: auto;
+  }
+
+  .przelacznik-motywu {
+    align-self: center;
   }
 
   .nawigacja ul {
