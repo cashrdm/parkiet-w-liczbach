@@ -46,8 +46,9 @@
   <a class="pomin" href="#tresc">Pomiń do treści</a>
 
   <header class="naglowek">
-    <!-- Logo prowadzi na początek strony (w D5 Artur wstawi tu logo SVG) -->
-        <a class="logo" href="#start">
+<!-- Logo prowadzi na początek strony. SVG jest wpisane bezpośrednio w HTML (inline),
+         dzięki temu CSS może animować jego linie. aria-hidden: nazwę podaje tekst obok. -->
+    <a class="logo" href="#start">
       <svg class="logo-znak" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
         <circle class="kontur pilka" cx="24" cy="24" r="20" pathLength="1"/>
         <path class="kontur szew" d="M24 4v40" pathLength="1"/>
