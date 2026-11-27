@@ -1,18 +1,66 @@
-/* Style wspólne: reset i układ bazowy.
-   Zmienne kolorów, typografia i motywy dojdą w kolejnych etapach. */
+/* Style wspólne · odpowiada: Łukasz
+   Zmienne CSS (kolory, typografia, odstępy), reset, typografia i układ mobile-first.
+   Mobile-first: style bazowe są dla telefonu, a @media (min-width: …) dokłada zmiany dla większych ekranów. */
 
+/* ==========================================================================
+   1. Zmienne – jedno miejsce do zmiany wyglądu całej strony
+   ========================================================================== */
+:root {
+  /* Kolory (kontrast tekstu z tłem sprawdzony wg WCAG AA: ≥ 4,5:1) */
+  --kolor-tlo: #ffffff;
+  --kolor-tlo-pole: #f6f3ee;           /* tło wyróżnionych bloków, np. nagłówka */
+  --kolor-tekst: #1a1a1a;              /* 17,4:1 na białym */
+  --kolor-tekst-slaby: #555555;        /* 7,5:1 – podpisy, źródła */
+  --kolor-akcent: #c2410c;             /* pomarańcz „piłki”: 5,2:1 – akcenty i podkreślenia */
+  --kolor-link: #9a3412;               /* 7,3:1 – linki w tekście */
+  --kolor-obramowanie: #dddddd;
+  --kolor-stopka-tlo: #1a1a1a;
+  --kolor-stopka-tekst: #f2f2f2;       /* 15,5:1 na tle stopki */
+  --kolor-stopka-link: #fdba74;        /* 10,3:1 na tle stopki */
+
+  /* Typografia: fonty systemowe = zero pobierania, szybki start strony */
+  --czcionka: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* clamp(minimum, wartość płynna, maksimum): rozmiar rośnie z szerokością ekranu, ale w granicach */
+  --rozmiar-tekst: 1rem;                                  /* 16 px – nie mniej na telefonie */
+  --rozmiar-maly: 0.875rem;
+  --rozmiar-h1: clamp(2rem, 1.4rem + 3vw, 3.5rem);        /* 32 px → 56 px */
+  --rozmiar-h2: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);   /* 24 px → 36 px */
+  --rozmiar-h3: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
+  --wysokosc-linii: 1.6;
+
+  /* Odstępy i układ */
+  --odstep-xs: 0.25rem;
+  --odstep-s: 0.5rem;
+  --odstep-m: 1rem;
+  --odstep-l: 1.5rem;
+  --odstep-sekcji: clamp(2.5rem, 2rem + 3vw, 5rem);       /* pionowy odstęp między sekcjami */
+  --margines-boczny: 1rem;
+  --szerokosc-tresci: 72rem;
+  --szerokosc-tekstu: 65ch;                                /* ok. 65 znaków w linii – wygodne czytanie */
+  --zaokraglenie: 0.5rem;
+  --wysokosc-naglowka: 4.5rem;                             /* na tyle przewijamy sekcję pod przyklejonym menu */
+}
+
+/* ==========================================================================
+   2. Reset i elementy podstawowe
+   ========================================================================== */
 *,
 *::before,
 *::after {
   box-sizing: border-box; /* szerokość elementu obejmuje padding i obramowanie */
 }
 
+html {
+  -webkit-text-size-adjust: 100%; /* iOS nie powiększa samowolnie tekstu po obróceniu telefonu */
+}
+
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; /* fonty systemowe = zero pobierania */
-  line-height: 1.6;
-  color: #1a1a1a;
-  background: #ffffff;
+  font-family: var(--czcionka);
+  font-size: var(--rozmiar-tekst);
+  line-height: var(--wysokosc-linii);
+  color: var(--kolor-tekst);
+  background: var(--kolor-tlo);
 }
 
 img,
@@ -23,15 +71,111 @@ canvas {
   max-width: 100%; /* media nigdy nie wychodzą poza ekran */
 }
 
-.naglowek,
-.sekcja,
-.stopka {
-  padding: 1.5rem 1rem;
+/* Kontrolki formularzy domyślnie mają własną, mniejszą czcionkę – ujednolicamy dla całej strony */
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
 
+/* ==========================================================================
+   3. Typografia
+   ========================================================================== */
+h1,
+h2,
+h3 {
+  margin: 0 0 var(--odstep-m);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-wrap: balance;      /* równiejsze łamanie nagłówków na linie (gdzie przeglądarka obsługuje) */
+}
+
+h1 {
+  font-size: var(--rozmiar-h1);
+  font-weight: 800;
+}
+
+h2 {
+  font-size: var(--rozmiar-h2);
+  font-weight: 750;
+}
+
+h3 {
+  font-size: var(--rozmiar-h3);
+}
+
+p {
+  max-width: var(--szerokosc-tekstu);
+  margin: 0 0 var(--odstep-m);
+}
+
+a {
+  color: var(--kolor-link);
+  text-underline-offset: 0.15em;
+}
+
+/* Krótki pomarańczowy pasek nad tytułem sekcji – wspólny akcent wizualny */
+.sekcja h2::before {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 0.25rem;
+  margin-bottom: var(--odstep-s);
+  border-radius: 2px;
+  background: var(--kolor-akcent);
+}
+
+/* ==========================================================================
+   4. Układ strony (mobile-first)
+   ========================================================================== */
+
+/* Sekcje: treść wyśrodkowana, maks. 72rem szerokości */
 .sekcja {
-  max-width: 72rem;
+  max-width: var(--szerokosc-tresci);
   margin: 0 auto;
+  padding: var(--odstep-sekcji) var(--margines-boczny);
+  scroll-margin-top: var(--odstep-m); /* po kliknięciu w menu tytuł sekcji nie przykleja się do krawędzi */
+}
+
+.sekcja + .sekcja {
+  border-top: 1px solid var(--kolor-obramowanie);
+}
+
+/* Sekcja startowa: większy, „wprowadzający” akapit */
+#start p {
+  font-size: clamp(1.05rem, 1rem + 0.4vw, 1.3rem);
+  color: var(--kolor-tekst-slaby);
+}
+
+/* Nagłówek i stopka są na całą szerokość (tło), ale treść wyrównujemy do sekcji:
+   padding = połowa wolnego miejsca obok 72rem + margines boczny sekcji. */
+.naglowek,
+.stopka {
+  padding-inline: max(var(--margines-boczny), calc((100% - var(--szerokosc-tresci)) / 2 + var(--margines-boczny)));
+}
+
+/* ---------- Link „Pomiń do treści” ---------- */
+/* Schowany nad krawędzią ekranu (nie display:none – wtedy czytniki ekranu i Tab by go pominęły).
+   Wjeżdża na ekran, gdy dostanie fokus z klawiatury. */
+.pomin {
+  position: absolute;
+  top: -4rem;
+  left: var(--margines-boczny);
+  z-index: 100;
+  padding: var(--odstep-s) var(--odstep-m);
+  border-radius: var(--zaokraglenie);
+  background: var(--kolor-tekst);
+  color: var(--kolor-tlo);
+}
+
+.pomin:focus {
+  top: var(--odstep-m);
+}
+
+/* <main> dostaje fokus tylko programowo (przez link „Pomiń”), obrys wokół całej treści byłby mylący */
+#tresc:focus {
+  outline: none;
 }
 
 /* Przewijanie do sekcji: płynne tylko wtedy, gdy użytkownik nie prosi o ograniczenie ruchu */
@@ -41,39 +185,21 @@ canvas {
   }
 }
 
-/* ---------- Link „Pomiń do treści” ---------- */
-/* Schowany nad krawędzią ekranu (nie display:none – wtedy czytniki ekranu i Tab by go pominęły).
-   Wjeżdża na ekran, gdy dostanie fokus z klawiatury. */
-.pomin {
-  position: absolute;
-  top: -4rem;
-  left: 1rem;
-  z-index: 100;
-  padding: 0.5rem 1rem;
-  background: #1a1a1a;
-  color: #ffffff;
-}
-
-.pomin:focus {
-  top: 1rem;
-}
-
-/* <main> dostaje fokus tylko programowo (przez link „Pomiń”), obrys wokół całej treści byłby mylący */
-#tresc:focus {
-  outline: none;
-}
-
 /* ---------- Nagłówek i nawigacja ---------- */
 .naglowek {
   display: flex;
-  flex-wrap: wrap;          /* na wąskim ekranie menu schodzi pod logo */
+  flex-wrap: wrap;          /* na telefonie menu schodzi pod logo */
   align-items: center;
-  gap: 0.5rem 2rem;
+  justify-content: space-between;
+  gap: var(--odstep-xs) var(--odstep-l);
+  padding-block: var(--odstep-s);
+  border-bottom: 1px solid var(--kolor-obramowanie);
+  background: var(--kolor-tlo-pole);
 }
 
 .logo {
-  font-weight: 700;
-  font-size: 1.25rem;
+  font-weight: 800;
+  font-size: 1.15rem;
   color: inherit;
   text-decoration: none;
 }
@@ -81,7 +207,7 @@ canvas {
 .nawigacja ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 1rem;
+  gap: 0 var(--odstep-m);
   margin: 0;
   padding: 0;
   list-style: none;         /* to lista linków, ale bez kropek */
@@ -91,10 +217,69 @@ canvas {
   display: inline-block;
   padding: 0.6rem 0.25rem;  /* cel dotyku min. ok. 44 px wysokości (WCAG 2.5.5) */
   color: inherit;
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+}
+
+.nawigacja a:hover {
+  border-bottom-color: var(--kolor-obramowanie);
 }
 
 /* Sekcja widoczna na ekranie – ustawia JS (main.js) atrybutem aria-current */
 .nawigacja a[aria-current] {
   font-weight: 700;
-  text-decoration-thickness: 3px;
+  border-bottom-color: var(--kolor-akcent);
+}
+
+/* ---------- Stopka ---------- */
+.stopka {
+  padding-block: var(--odstep-l);
+  background: var(--kolor-stopka-tlo);
+  color: var(--kolor-stopka-tekst);
+  font-size: var(--rozmiar-maly);
+}
+
+.stopka a {
+  color: var(--kolor-stopka-link);
+}
+
+.stopka p:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   5. Większe ekrany
+   ========================================================================== */
+
+/* Od 48rem (768 px, tablet): szersze marginesy, większe logo.
+   Menu może jeszcze zajmować dwa wiersze, więc nagłówka nie przyklejamy. */
+@media (min-width: 48rem) {
+  :root {
+    --margines-boczny: 1.5rem;
+  }
+
+  .logo {
+    font-size: 1.25rem;
+  }
+}
+
+/* Od 64rem (1024 px): logo i całe menu mieszczą się w jednym wierszu,
+   więc przyklejamy nagłówek u góry ekranu – menu jest zawsze pod ręką.
+   (Na telefonie i tablecie nie: wyższy nagłówek zabierałby za dużo ekranu.) */
+@media (min-width: 64rem) {
+  .naglowek {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    flex-wrap: nowrap;
+  }
+
+  .nawigacja ul {
+    gap: 0 var(--odstep-l);
+  }
+
+  /* Przyklejony nagłówek zasłaniałby tytuł sekcji po kliknięciu w menu – przewijamy niżej */
+  .sekcja {
+    scroll-margin-top: var(--wysokosc-naglowka);
+  }
 }
