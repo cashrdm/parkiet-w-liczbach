@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <!-- Logo „Parkiet w liczbach” – wersja statyczna (ikona karty przeglądarki).
+       Wersja animowana jest wpisana bezpośrednio w index.html (nagłówek). -->
+  <circle cx="24" cy="24" r="20" fill="#f08c00" stroke="#1a1a1a" stroke-width="2"/>
+  <g fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round">
+    <path d="M24 4v40"/>
+    <path d="M4 24h40"/>
+    <path d="M10.5 9.5c6 4 9 9 9 14.5s-3 10.5-9 14.5"/>
+    <path d="M37.5 9.5c-6 4-9 9-9 14.5s3 10.5 9 14.5"/>
+  </g>

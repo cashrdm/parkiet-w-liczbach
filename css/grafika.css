@@ -1,0 +1,61 @@
+/* W2 – grafika SVG · odpowiada: Artur
+   Logo z animacją rysowania konturu, sprite ikon, infografika. */
+
+/* ---------- Logo ---------- */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-znak {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+}
+
+.logo-znak .kontur {
+  fill: none;
+  stroke: currentColor;      /* kolor tekstu logo – zadziała też w trybie ciemnym */
+  stroke-width: 2;
+  stroke-linecap: round;
+  /* pathLength="1" w HTML: długość każdej linii traktujemy jako 1,
+     więc kreska (dash) o długości 1 to cała linia, niezależnie od jej prawdziwej długości */
+  stroke-dasharray: 1;
+}
+
+.logo-znak .pilka {
+  fill: #f08c00;
+}
+
+/* Animację włączamy tylko, gdy użytkownik NIE prosi o ograniczenie ruchu.
+   Bez animacji logo od razu jest narysowane w całości. */
+@media (prefers-reduced-motion: no-preference) {
+  .logo-znak .kontur {
+    animation: rysuj-kontur 1.2s ease-in-out both;
+  }
+
+  /* kolejność: najpierw obwód piłki, potem szwy jeden po drugim */
+  .logo-znak .szew:nth-of-type(1) { animation-delay: 0.3s; }
+  .logo-znak .szew:nth-of-type(2) { animation-delay: 0.45s; }
+  .logo-znak .szew:nth-of-type(3) { animation-delay: 0.6s; }
+  .logo-znak .szew:nth-of-type(4) { animation-delay: 0.75s; }
+
+  /* piłka: rysujemy obwód, a po nim wypełniamy kolorem (dwie animacje naraz, po przecinku) */
+  .logo-znak .pilka {
+    animation:
+      rysuj-kontur 1.2s ease-in-out both,
+      wypelnij 0.6s ease-out 1.1s both;
+  }
+}
+
+/* Przesunięcie kreski o całą długość (1) = linia niewidoczna; 0 = linia narysowana w całości */
+@keyframes rysuj-kontur {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes wypelnij {
+  from { fill-opacity: 0; }
+  to   { fill-opacity: 1; }
+}

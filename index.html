@@ -14,6 +14,9 @@
   <link rel="stylesheet" href="./css/scena.css">
   <link rel="stylesheet" href="./css/odtwarzacz.css">
 
+  <link rel="stylesheet" href="./css/grafika.css">
+  <link rel="icon" href="./svg/logo.svg" type="image/svg+xml">
+
   <!-- Skrypty: moduły ES są domyślnie odroczone (jak defer), więc nie blokują wczytywania strony.
        Każdy moduł ładujemy osobno – błąd w jednym nie wyłącza pozostałych. -->
   <script type="module" src="./js/main.js"></script>
@@ -29,7 +32,16 @@
 
   <header class="naglowek">
     <!-- Logo prowadzi na początek strony (w D5 Artur wstawi tu logo SVG) -->
-    <a class="logo" href="#start">Parkiet w liczbach</a>
+        <a class="logo" href="#start">
+      <svg class="logo-znak" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <circle class="kontur pilka" cx="24" cy="24" r="20" pathLength="1"/>
+        <path class="kontur szew" d="M24 4v40" pathLength="1"/>
+        <path class="kontur szew" d="M4 24h40" pathLength="1"/>
+        <path class="kontur szew" d="M10.5 9.5c6 4 9 9 9 14.5s-3 10.5-9 14.5" pathLength="1"/>
+        <path class="kontur szew" d="M37.5 9.5c-6 4-9 9-9 14.5s3 10.5 9 14.5" pathLength="1"/>
+      </svg>
+      Parkiet w liczbach
+    </a>
 
     <nav class="nawigacja" aria-label="Sekcje strony">
       <ul>
