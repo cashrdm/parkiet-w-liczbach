@@ -31,6 +31,9 @@
 
   <!-- Skrypty: moduły ES są domyślnie odroczone (jak defer), więc nie blokują wczytywania strony.
        Każdy moduł ładujemy osobno – błąd w jednym nie wyłącza pozostałych. -->
+
+    <!-- D3.js v7 (licencja ISC) – zwykły skrypt z defer, wykona się przed modułami, które są niżej -->
+  <script src="./js/vendor/d3.v7.min.js" defer></script>
   <script type="module" src="./js/main.js"></script>
   <script type="module" src="./js/galeria.js"></script>
   <script type="module" src="./js/wykresy.js"></script>
@@ -99,6 +102,10 @@
     <section id="sezon" class="sekcja" aria-labelledby="sezon-tytul">
       <h2 id="sezon-tytul">Wyścig sezonu</h2>
       <p>Jak zmieniał się bilans zwycięstw drużyn w trakcie sezonu.</p>
+      <figure class="wykres" id="wykres-sezon">
+        <div class="wykres-obszar"></div>
+        <figcaption class="wykres-zrodlo">Źródło: NBA.com/stats.</figcaption>
+      </figure>
     </section>
 
     <!-- ZAWODNICY · W3 wykres 2 · odpowiada: Artur (karty 3D: Łukasz) -->

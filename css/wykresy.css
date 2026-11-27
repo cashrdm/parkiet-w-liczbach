@@ -1,1 +1,45 @@
-/* W3 – wykresy D3 i infografika SVG · odpowiada: Artur */
+/* W3 – wykresy D3 · odpowiada: Artur */
+
+.wykres {
+  margin: 1rem 0 0;
+}
+
+.wykres-obszar {
+  width: 100%;
+  min-height: 300px;          /* miejsce zarezerwowane przed wczytaniem danych – strona nie „skacze” */
+}
+
+.wykres svg {
+  overflow: visible;          /* etykiety drużyn mogą lekko wystawać poza prawy margines */
+}
+
+.wykres text {
+  font-family: inherit;
+  font-size: 0.75rem;
+}
+
+/* Siatka: kreski osi Y przeciągnięte w poprzek wykresu */
+.wykres .os-y .tick line {
+  stroke: #dddddd;
+}
+
+.wykres .os-y .domain {
+  display: none;
+}
+
+.wykres .linie path {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.wykres .etykiety text {
+  font-weight: 700;
+  dominant-baseline: middle;  /* tekst wyśrodkowany w pionie na końcu linii */
+}
+
+.wykres-zrodlo {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #555555;
+}
